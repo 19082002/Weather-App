@@ -13,7 +13,7 @@ body{
 
 
 .container{
- height:80vh;
+ height:75vh;
  min-width: 150px;
  max-width: 250px;
  min-height: 450px;
@@ -47,7 +47,7 @@ margin-top: -29px;
 }
 .location{
     font-size: small;
-    color:rgb(94, 94, 94);
+    color:rgb(8, 0, 0);
     cursor: pointer;
     /* font-weight: bold; */
 }
@@ -85,7 +85,7 @@ padding: 3px;
 /* padding-left: 0; */
 color:white;
 /* border:6px solid rgba(63, 62, 62, 0.096); */
-background-color: rgba(128, 128, 128, 0.329);
+background-color: rgba(46, 44, 44, 0.418);
 border-radius: 10px;
 }
 li{
@@ -93,10 +93,10 @@ li{
 }
 .time{
     text-align: center;
-    /* margin:4%; */
+    /* margin-bottom:4%; */
     /* margin-bottom:1%; */
-    position: relative;
-    bottom:0;
+    position:relative;
+    bottom: 0;
     font-weight: bold;
     color:rgba(49, 4, 100, 0.836);
     text-shadow: 9;

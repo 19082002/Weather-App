@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./home.css";
 function Home(props) {
+  // const[backgr,setBackgr]=(url(/images/back.jpg));
+  const [hr,setHr]=useState(1);
   const [temp, setTemp] = useState(23);
   const [city_name, setCity] = useState("Lc");
   const [obmain, setObmain] = useState({
@@ -40,7 +42,7 @@ function Home(props) {
       `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=7a36780cd7989555231b47d268f69c7f`
     )
       .then((res) => res.json())
-      .then((loc) => {
+      .then((loc) => { 
         console.log(loc);
         console.log(loc[0]);
         getWeather(loc[0].lat, loc[0].lon);
@@ -66,6 +68,7 @@ function Home(props) {
         setCity(data.name);
         setTemp(Math.round((data.main.temp) - 273.15));
         setSky(data.weather[0].main);
+        // icon();
         setObmain({
           wind: data.wind.speed,
           feellike: Math.round(data.main.feels_like - 273.15),
@@ -80,35 +83,57 @@ function Home(props) {
         icon();
 
       })
+      .then((res)=>{icon();})
       .catch((err) => {
         console.log(err);
         alert("Loaction not found");
       });
   }
   function icon() {
+   console.log(sky);
     switch (sky) {
-      case "Haze":
-        setIc("cloud-meatball");
+      case "Clear":
+        if(hr>4&&hr<18){
+          document.getElementById("cnt").style.backgroundImage = "url('/images/clear.jpg')";  
+        setIc("sun");}
+        else{
+          document.getElementById("cnt").style.backgroundImage = "url('/images/clearnight.jpg')";
+         setIc("moon");}
         break;
-      case "Clouds":
-        setIc("cloud-sun");
+       case "Haze":
+        document.getElementById("cnt").style.backgroundImage = "url('/images/haze.jpg')";
+       setIc("smog");
+        break;
+      case "Clouds":   
+        if(hr>4&&hr<18){
+          document.getElementById("cnt").style.backgroundImage = "url('/images/cloud.jpg')"; 
+        setIc("cloud-sun");}
+        else {
+          document.getElementById("cnt").style.backgroundImage = "url('/images/cloud.jpg')";setIc("cloud-moon"); 
+      }
+        console.log(ic);
         break;
       case "Rain":
-        setIc("cloud-showers-heavy");
+        document.getElementById("cnt").style.backgroundImage = "url('/images/rain.jpg')";
+        setIc("cloud-rain");
         break;
-      case "Snow":
+      case "Snow": 
+      document.getElementById("cnt").style.backgroundImage = "url('/images/haze.jpg')";
         setIc("snowflake");
         break;
       case "Dust":
         setIc();
         break;
       case "Fog":
+        document.getElementById("cnt").style.backgroundImage = "url('/images/haze.jpg')";
         setIc("smog");
         break;
       case "smoke":
+        document.getElementById("cnt").style.backgroundImage = "url('/images/storm.jpg')";
         setIc("smog");
         break;
       case "Tornado":
+        document.getElementById("cnt").style.backgroundImage = "url('/images/clearnight.jpg')";
         setIc("poo-storm");
         break;
       default:
@@ -118,13 +143,16 @@ function Home(props) {
   function date(){
     setInterval(()=>{
       let a=new Date();
-      let time=a.getHours()+':'+a.getMinutes()+':'+a.getSeconds()+' ';
+      let hrs=a.getHours();
+      setHr(hrs);  
+      let time=hrs+':'+a.getMinutes()+':'+a.getSeconds()+' ';
       document.getElementById('tm').innerHTML=time;
     })
   }
 date(); 
+// icon(); 
 // all_loc();
-
+ 
   return (
     <> 
       <div className="main">
